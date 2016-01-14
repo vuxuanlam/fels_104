@@ -1,39 +1,107 @@
 package framgiavn.project01.web.business.impl;
 
+import java.util.List;
+
 import framgiavn.project01.web.business.UserBusiness;
 import framgiavn.project01.web.dao.UserDAO;
 import framgiavn.project01.web.model.User;
+import framgiavn.project01.web.ulti.Helpers;
+import framgiavn.project01.web.ulti.Logit2;
 
 public class UserBusinessImpl implements UserBusiness {
 
-	private UserDAO userDAO;
+  private static final Logit2 log = Logit2.getInstance(UserBusinessImpl.class);
 
-	public UserDAO getUserDAO() {
-		return userDAO;
-	}
+  private UserDAO             userDAO;
 
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
+  public UserDAO getUserDAO() {
 
-	@Override
-	public User findByUserId(Integer user_id) throws Exception {
-		try {
-			return getUserDAO().findByUserId(user_id);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+    return userDAO;
+  }
 
-	@Override
-	public User findByUsername(String username) throws Exception {
-		try {
-			return getUserDAO().findByUsername(username);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+  public void setUserDAO(UserDAO userDAO) {
 
+    this.userDAO = userDAO;
+  }
+
+  @Override
+  public User findByUserId(Integer user_id) {
+
+    try {
+      return getUserDAO().findById(user_id);
+    } catch (Exception e) {
+      log.error(e);
+      return null;
+    }
+  }
+
+  @Override
+  public User findByUsername(String username) {
+
+    try {
+      List<User> list = getUserDAO().findByProperty("username", username);
+      return Helpers.isEmpty(list) ? null : list.get(0);
+    } catch (Exception e) {
+      log.error(e);
+      return null;
+    }
+  }
+
+  @Override
+  public User findByEmail(String email) {
+
+    try {
+      List<User> list = getUserDAO().findByProperty("email", email);
+      return Helpers.isEmpty(list) ? null : list.get(0);
+    } catch (Exception e) {
+      log.error(e);
+      return null;
+    }
+  }
+
+  public boolean signup(User user) {
+
+    try {
+      getUserDAO().save(user);
+      return true;
+    } catch (Exception e) {
+      log.error(e);
+      return false;
+    }
+  }
+
+  @Override
+  public User checkLogin(User user) {
+
+    try {
+      return getUserDAO().checkLogin(user);
+    } catch (Exception e) {
+      log.error(e);
+      return null;
+    }
+  }
+
+  @Override
+  public User checkAccountAvalible(User user) {
+
+    try {
+      return getUserDAO().checkAccountAvalible(user);
+    } catch (Exception e) {
+      log.error(e);
+      return null;
+    }
+  }
+
+  @Override
+  public boolean update(User user) {
+
+    try {
+      getUserDAO().update(user);
+      return true;
+    } catch (Exception e) {
+      log.error(e);
+      return false;
+    }
+
+  }
 }
