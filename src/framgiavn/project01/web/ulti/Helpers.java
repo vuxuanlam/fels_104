@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -265,4 +266,9 @@ public final class Helpers {
     }
   }
 
+
+public static Date getCurrentDate() {
+
+  return new Date();
+}
 }
