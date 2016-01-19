@@ -3,14 +3,11 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-<title>Test</title>
-<link type="image/x-icon" href="<web:img/>layout/marketing/favicon.png"
-	rel="icon" />
+<link type="image/x-icon" href="${pageContext.request.contextPath}/image/common/favicon.png" rel="icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="pragma" content="no-cache" />
 <meta http-equiv="cache-control" content="no-cache" />
@@ -77,6 +74,8 @@
 	<div id="progress_loading_img"></div>
 	<s:hidden name="GMTLocal" id="GMTLocal" />
 	<div id="wrapper">
+		<!-- navigation -->
+		<tiles:insertAttribute name="navigation"></tiles:insertAttribute>
 		<!--start login-->
 		<tiles:insertAttribute name="header" />
 		<!--end login-->
