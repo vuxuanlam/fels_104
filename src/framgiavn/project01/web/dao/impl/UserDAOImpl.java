@@ -1,5 +1,7 @@
 package framgiavn.project01.web.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 
 import framgiavn.project01.web.dao.UserDAO;
@@ -45,6 +47,18 @@ public class UserDAOImpl extends GenericDAOImpl<User, Integer> implements
       return (User) query.uniqueResult();
     } catch (RuntimeException re) {
       log.error("Account is avalible");
+      throw re;
+    }
+  }
+
+  @Override
+  public List<User> searchByUsername(String key) throws Exception {
+
+    try {
+      Query query = getSession().getNamedQuery("User.searchByUsername");
+      query.setParameter("username", "%" + key + "%");
+      return query.list();
+    } catch (RuntimeException re) {
       throw re;
     }
   }

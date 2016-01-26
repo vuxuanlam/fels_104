@@ -9,7 +9,8 @@
                     class="icon-bar"></span> <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href='<s:url value="/"></s:url>'><img alt="Logo"
-                src="${pageContext.request.contextPath}/image/common/logo.png" height="40" width="auto"></a>
+                src="${pageContext.request.contextPath}/image/common/logo.png" height="40"
+                width="auto"></a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -24,6 +25,15 @@
                 <li><a href="#">Contact</a></li>
             </ul>
             <s:if test="#session.user">
+                <!-- Search form -->
+                <form class="navbar-form navbar-left" role="search"
+                    action='<s:url value="/user/searchUser"></s:url>' method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search"
+                            name="searchKey">
+                    </div>
+                    <button type="submit" class="btn btn-default">Search User</button>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" class="dropdown-toggle"
                         data-toggle="dropdown" role="button" aria-haspopup="true"

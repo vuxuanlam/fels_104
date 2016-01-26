@@ -49,5 +49,13 @@
         <action name="logout" class="springUserAction" method="logout">
             <result name="success">HomePage</result>
         </action>
+
+        <!-- search -->
+        <action name="searchUser" class="springUserAction"
+            method="searchUser">
+            <result name="success">User.SearchResult</result>
+            <result name="error">User.SearchResult</result>
+            <result name="none">HomePage</result>
+        </action>
     </package>
 </struts>

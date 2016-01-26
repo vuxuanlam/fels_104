@@ -1,6 +1,7 @@
 package framgiavn.project01.web.action;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.dispatcher.SessionMap;
@@ -11,19 +12,32 @@ import com.opensymphony.xwork2.ActionSupport;
 import framgiavn.project01.web.business.UserBusiness;
 import framgiavn.project01.web.model.User;
 import framgiavn.project01.web.ulti.Constant;
+import framgiavn.project01.web.ulti.Helpers;
 
 public class UserAction extends ActionSupport implements SessionAware {
 
   /**
    * 
    */
-  private static final long serialVersionUID = 1L;
+  private static final long          serialVersionUID = 1L;
 
   // private Logit2 log = Logit2.getInstance(UserAction.class);
 
-  private UserBusiness               userBusiness = null;
-  private User                       user         = null;
+  private UserBusiness               userBusiness     = null;
+  private User                       user             = null;
   private SessionMap<String, Object> session;
+  private String                     searchKey        = null;
+  private List<User>                 resultSearch     = null;
+
+  public void setSearchKey(String searchKey) {
+
+    this.searchKey = searchKey;
+  }
+
+  public List<User> getResultSearch() {
+
+    return this.resultSearch;
+  }
 
   public void setUserBusiness(UserBusiness userBusiness) {
 
@@ -118,6 +132,25 @@ public class UserAction extends ActionSupport implements SessionAware {
       session.invalidate();
     }
     return SUCCESS;
+  }
+
+  public String searchUser() {
+
+    if (session.isEmpty())
+      return NONE;
+    if (searchKey != null) {
+      resultSearch = userBusiness.searchByUsername(searchKey);
+      if (!Helpers.isEmpty(resultSearch)) {
+        addActionMessage("Result for " + searchKey + ":");
+        return SUCCESS;
+      } else {
+        addActionError("Dont have result: " + searchKey);
+        return ERROR;
+      }
+    } else {
+      addActionError("Enter your key search");
+      return ERROR;
+    }
   }
 
   public String homePage() {
